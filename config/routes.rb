@@ -1,4 +1,10 @@
 Rails.application.routes.draw do
+  resources :profiles
+  devise_for :users
+root :to => 'home#index'
+
+  get 'home/index'
+
   get 'requests/index'
 
   get 'requests/show'
@@ -6,6 +12,8 @@ Rails.application.routes.draw do
   get 'requests/new'
 
   get 'requests/edit'
+
+  get '/signedinuserprofile' => 'profiles#signedinuserprofile'
 
   resources :patients do
   resources :requests
