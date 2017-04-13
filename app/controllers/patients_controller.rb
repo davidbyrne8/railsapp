@@ -1,3 +1,4 @@
+require 'my_logger'
 class PatientsController < ApplicationController
 before_filter :authenticate_user!
 helper_method :sort_column, :sort_direction
@@ -42,7 +43,9 @@ helper_method :sort_column, :sort_direction
   # POST /patients.json
   def create
     @patient = Patient.new(patient_params)
-
+    # retrieve the instance/object of the MyLogger class 
+    logger = MyLogger.new() 
+    logger.logInformation("Patient added at: "+ Time.now.to_s + ",with name: " + @patient.name) 
     respond_to do |format|
       if @patient.save
         format.html { redirect_to @patient, notice: 'Patient was successfully created.' }
